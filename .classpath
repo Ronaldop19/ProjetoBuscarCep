@@ -6,5 +6,6 @@
 			<attribute name="module" value="true"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry kind="lib" path="src/cep/Atxy2k.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

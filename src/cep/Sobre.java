@@ -1,14 +1,20 @@
 package cep;
 
-import java.awt.EventQueue;
-
-import javax.swing.JDialog;
-import java.awt.Toolkit;
-import javax.swing.JLabel;
-import java.awt.SystemColor;
-import javax.swing.JButton;
 import java.awt.Cursor;
+import java.awt.Desktop;
+import java.awt.EventQueue;
+import java.awt.SystemColor;
+import java.awt.Toolkit;
+import java.net.URI;
+
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JDialog;
+import javax.swing.JLabel;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class Sobre extends JDialog {
 
@@ -33,10 +39,11 @@ public class Sobre extends JDialog {
 	 * Create the dialog.
 	 */
 	public Sobre() {
+		setModal(true);
 		setResizable(false);
 		setTitle("Sobre");
 		setIconImage(Toolkit.getDefaultToolkit().getImage(Sobre.class.getResource("/img/home.png")));
-		setBounds(100, 100, 450, 300);
+		setBounds(150, 150, 450, 300);
 		getContentPane().setLayout(null);
 		
 		JLabel lblNewLabel = new JLabel("Buscar CEP - Ver 1.0");
@@ -51,29 +58,55 @@ public class Sobre extends JDialog {
 		lblNewLabel_2.setBounds(30, 122, 82, 13);
 		getContentPane().add(lblNewLabel_2);
 		
-		JLabel lblNewLabel_3 = new JLabel("republicavirtual.com.br");
-		lblNewLabel_3.setForeground(SystemColor.textHighlight);
-		lblNewLabel_3.setBounds(121, 122, 206, 13);
-		getContentPane().add(lblNewLabel_3);
+		JLabel lblWebService = new JLabel("republicavirtual.com.br");
+		lblWebService.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				link("https://republicavirtual.com.br/");
+			}
+		});
+		lblWebService.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		lblWebService.setForeground(SystemColor.textHighlight);
+		lblWebService.setBounds(121, 122, 206, 13);
+		getContentPane().add(lblWebService);
 		
-		JButton btnNewButton = new JButton("");
-		btnNewButton.setToolTipText("LinkedIn");
-		btnNewButton.setIcon(new ImageIcon(Sobre.class.getResource("/img/linkedin.png")));
-		btnNewButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		btnNewButton.setBorder(null);
-		btnNewButton.setBackground(SystemColor.control);
-		btnNewButton.setBounds(43, 193, 69, 48);
-		getContentPane().add(btnNewButton);
+		JButton btnLinkedin = new JButton("");
+		btnLinkedin.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				link("https://linkedin.com/in/ronaldo-amorim-861655234/");
+			}
+		});
+		btnLinkedin.setToolTipText("LinkedIn");
+		btnLinkedin.setIcon(new ImageIcon(Sobre.class.getResource("/img/linkedin.png")));
+		btnLinkedin.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		btnLinkedin.setBorder(null);
+		btnLinkedin.setBackground(SystemColor.control);
+		btnLinkedin.setBounds(43, 193, 69, 48);
+		getContentPane().add(btnLinkedin);
 		
-		JButton btnNewButton_1 = new JButton("");
-		btnNewButton_1.setToolTipText("GitHub");
-		btnNewButton_1.setIcon(new ImageIcon(Sobre.class.getResource("/img/github.png")));
-		btnNewButton_1.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		btnNewButton_1.setBorder(null);
-		btnNewButton_1.setBackground(SystemColor.control);
-		btnNewButton_1.setBounds(219, 193, 58, 48);
-		getContentPane().add(btnNewButton_1);
+		JButton btnGithub = new JButton("");
+		btnGithub.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				link("https://github.com/Ronaldop19");
+			}
+		});
+		btnGithub.setToolTipText("GitHub");
+		btnGithub.setIcon(new ImageIcon(Sobre.class.getResource("/img/github.png")));
+		btnGithub.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		btnGithub.setBorder(null);
+		btnGithub.setBackground(SystemColor.control);
+		btnGithub.setBounds(219, 193, 58, 48);
+		getContentPane().add(btnGithub);
 
+	}//end constructor
+
+	private void link(String site) {
+		Desktop desktop = Desktop.getDesktop();
+		try {
+			URI uri = new URI(site);
+			desktop.browse(uri);
+		} catch (Exception e) {
+			System.out.println(e);
+		}
 	}
-
 }
